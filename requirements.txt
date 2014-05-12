@@ -2,3 +2,9 @@ django
 djangorestframework
 South
 requests
+readline
+
+
+lxml
+
+uwsgi
