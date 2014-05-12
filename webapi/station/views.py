@@ -19,7 +19,7 @@ def show(request, id):
 
 
 def is_holiday(date):
-    h = models.Holiday.objects.get(date=date)
+    h = models.Holiday.objects.filter(date=date).first()
     return h is not None
 
 
