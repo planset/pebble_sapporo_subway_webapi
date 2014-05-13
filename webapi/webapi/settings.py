@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'south',
 
     'station',
+    'message',
 )
 
 MIDDLEWARE_CLASSES = (
