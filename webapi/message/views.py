@@ -33,7 +33,7 @@ def add_message(request):
         m.message = message
         m.save()
         messages.append('Successfully!')
-    return render_to_response("pebblemessenger/message.html",
+    return render_to_response("message/message.html",
             {'messages':messages},
             context_instance=RequestContext(request))
 
