@@ -23,21 +23,21 @@ def is_holiday(date):
     return h is not None
 
 
-def closest_station(stations, current_loc):
-    closest_station = None
-    m = 999
+def _closest_station(stations, current_loc):
+    result = None
+    m = 9999999
     for station in stations:
         lat1rad = radians(current_loc.lat)
-        lat2rad = radians(station.lng)
+        lat2rad = radians(station.lat)
         dis = acos(sin(lat1rad) * sin(lat2rad) + cos(lat1rad) * cos(lat2rad) * cos(radians(station.lng) - radians(current_loc.lng))) * 6378.1
         if m > dis:
             m = dis
-            closest_station = station
-    return closest_station
+            result = station
+    return result 
 
 def closest(request, lat, lng):
     stations = models.Station.objects.all()
-    station = closest_station(stations, Location(lat, lng))
+    station = _closest_station(stations, Location(lat, lng))
     now = datetime.now()
     time_string = now.strftime('%H%m')
     next_fukuzumi_departure = None
