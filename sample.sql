@@ -1,3 +1,8 @@
+delete from station_station;
+delete from station_stationdeparture;
+
+insert into station_station(name, name_for_pebble, description, lat, lng) values ('栄町', '栄町', '', 43.112995, 141.367142);
+
 insert into station_stationdeparture(station_id, holiday, time, direction) values (1,0,'0600','fukuzumi');
 insert into station_stationdeparture(station_id, holiday, time, direction) values (1,0,'0610','fukuzumi');
 insert into station_stationdeparture(station_id, holiday, time, direction) values (1,0,'0620','fukuzumi');
