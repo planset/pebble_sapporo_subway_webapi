@@ -38,4 +38,31 @@ Feature
     * 次の電車発車時刻（福住方面行き、栄町方面行き）
 
 
+setup
+=======
+nginx+supervisor+uwsgi
+
+supervisor::
+
+    sudo ln -s /var/vhosts/dkpyn.com/pebble-planset-webapi/supervisor_conf/pebble-planset-webapi.conf  /etc/supervisor/conf.d/
+
+
+nginx::
+
+    upstream pebble_planset_webapi {
+        ip_hash;
+        server 127.0.0.1:9091;
+    }
+
+    # ======================================================
+    # /   pebble-planset-webapi web settings
+    # ======================================================
+    location ~ ^/pebble/(.*)$ {
+        uwsgi_pass pebble_planset_webapi;
+        include uwsgi_params;
+        uwsgi_param SCRIPT_NAME /pebble;
+        uwsgi_param PATH_INFO /$1;
+    }
+
+
 
