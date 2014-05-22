@@ -62,15 +62,13 @@ def closest(request, lat, lng):
     dir1time = add_colon(next_sakaemachi_departure.time) if next_sakaemachi_departure else ''
     dir2time = add_colon(next_fukuzumi_departure.time) if next_fukuzumi_departure else ''
     data = {
-            'stationInfoName': station.name,
-            'stationInfoDir1': u'栄町',
-            'stationInfoDir2': u'福住',
-            'stationInfoDir1Departure': dir1time,
-            'stationInfoDir2Departure': dir2time
+            u'stationInfoName': unicode(station.name_for_pebble),
+            u'stationInfoDir1': u'栄町',
+            u'stationInfoDir2': u'福ずみ',
+            u'stationInfoDir1Departure': unicode(dir1time),
+            u'stationInfoDir2Departure': unicode(dir2time)
             }
-    #data = jsonalize(data)
-    #data = serializers.serialize('plainjson', data, ensure_ascii=False)
-    data = json.dumps(data, ensure_ascii=False)
+    data = json.dumps(data, ensure_ascii=False, encoding='utf-8')
     return HttpResponse(data, mimetype='application/json;charset=utf-8')
 
 def departures(request, station_id):
