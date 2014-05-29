@@ -45,13 +45,11 @@ def closest(request, lat, lng):
     stations = models.Station.objects.all()
     station = _closest_station(stations, Location(lat, lng))
     now = datetime.now()
-    print datetime.now()
     time_string = now.strftime('%H%M')
     next_fukuzumi_departure = None
     next_sakaemachi_departure = None
     f = is_holiday(now.strftime('%Y-%m-%d'))
     for departure in station.departures_by_direction('fukuzumi', f).all():
-        print departure.time,'>',time_string
         if departure.time > time_string:
             next_fukuzumi_departure = departure
             break

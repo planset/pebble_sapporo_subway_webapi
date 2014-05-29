@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 import json
 
-from django.core.management.base import BaseCommand, AppCommand
-import requests
+from django.core.management.base import BaseCommand
 
-from lxml import etree
 from station.models import Station, StationDeparture
 
 
@@ -19,33 +17,35 @@ class Command(BaseCommand):
         with open(dia_json_path) as f:
             diadict = json.load(f, encoding='utf-8')
 
-        hours = list(range(6, 24)) + [0]
-
-        for k,dia in diadict.items():
-            station_id = int(k)
+        for station_id_str,dia in diadict.items():
+            station_id = int(station_id_str)
             s = Station.objects.get(pk=station_id)
-            s.departures.all().delete()
             if s is None:
                 continue
+            s.departures.all().delete()
 
-            for j in range(2):
+            #0:平日、1;休日
+            for holiday_id in range(2):
                 # 栄町と福住（片方しか路線がない駅）
-                if dia[j] is None:
+                if dia[holiday_id] is None:
                     continue
-                holiday = False if j==0 else True
-                for hourtimedict in dia[j]:
-                    for i in range(2):
-                        direction = 'fukuzumi' if i==0 else 'sakaemachi'
-                        for hour in hours:
-                            hour_key = unicode(str(hour))
-                            for time in hourtimedict[hour_key]:
-                                sd = StationDeparture()
-                                sd.time = "{hour:02d}{time:02d}".format(
-                                        hour=hour,time=time)
-                                sd.holiday = holiday
-                                sd.direction = direction
-                                s.departures.add(sd)
-                            s.save()
+
+                is_holiday = False if holiday_id==0 else True
+
+                #dia[holiday_id][0]が福住行き、dia[holiday_id][1]が栄町行き
+                for direction_id in range(2):
+                    direction = 'fukuzumi' if direction_id==0 else 'sakaemachi'
+                    for hour, minutes in dia[holiday_id][direction_id].items():
+                        for minute in minutes:
+                            hour = int(hour)
+                            minute = int(minute)
+                            sd = StationDeparture()
+                            sd.time = "{hour:02d}{minute:02d}".format(
+                                    hour=hour,minute=minute)
+                            sd.holiday = is_holiday
+                            sd.direction = direction
+                            s.departures.add(sd)
+                        s.save()
                         
 
 # vim: tabstop=4 shiftwidth=4 expandtab softtabstop
