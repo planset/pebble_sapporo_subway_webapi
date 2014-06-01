@@ -33,7 +33,7 @@ def _closest_station(stations, current_loc):
         lat1rad = radians(current_loc.lat)
         lat2rad = radians(station.lat)
         dis = acos(sin(lat1rad) * sin(lat2rad) + cos(lat1rad) * cos(lat2rad) * cos(radians(station.lng) - radians(current_loc.lng))) * 6378.1
-        if m > dis:
+        if dis < m:
             m = dis
             result = station
     return result 
