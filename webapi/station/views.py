@@ -22,7 +22,13 @@ def show(request, id):
 
 
 def is_holiday(date):
-    h = models.Holiday.objects.filter(date=date).first()
+    """
+    :param date datetime.date: 指定した日付
+    :return True/False: True:土日祝日, False:平日
+    """
+    if date.weekday() in (5, 6):
+        return True
+    h = models.Holiday.objects.filter(date=date.strftime('%Y-%m-%d')).first()
     return h is not None
 
 
@@ -48,14 +54,14 @@ def closest(request, lat, lng):
     time_string = now.strftime('%H%M')
     next_fukuzumi_departure = None
     next_sakaemachi_departure = None
-    f = is_holiday(now.strftime('%Y-%m-%d'))
-    for departure in station.departures_by_direction('fukuzumi', f).all():
-        if departure.time > time_string:
-            next_fukuzumi_departure = departure
-            break
+    f = is_holiday(now)
     for departure in station.departures_by_direction('sakaemachi', f).all():
         if departure.time > time_string:
             next_sakaemachi_departure = departure
+            break
+    for departure in station.departures_by_direction('fukuzumi', f).all():
+        if departure.time > time_string:
+            next_fukuzumi_departure = departure
             break
     dir1time = add_colon(next_sakaemachi_departure.time) if next_sakaemachi_departure else ''
     dir2time = add_colon(next_fukuzumi_departure.time) if next_fukuzumi_departure else ''

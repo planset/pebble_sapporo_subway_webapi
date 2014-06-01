@@ -20,14 +20,14 @@ class Command(BaseCommand):
             stations = json.load(f, encoding='utf-8')
 
         for station in stations:
-            id = int(station[0])
+            id = int(station['station_id'])
             s = Station.objects.filter(id=id).first() or Station.objects.create()
             s.id = id
-            s.name = station[2]
-            s.name_for_pebble = station[3]
-            s.description = station[1]
-            s.lat = float(station[4])
-            s.lng = float(station[5])
+            s.name = station['station_name']
+            s.name_for_pebble = station['station_name_for_pebble']
+            s.description = station['pdf_file_name']
+            s.lat = float(station['fX'])
+            s.lng = float(station['fY'])
             s.save()
             
 
