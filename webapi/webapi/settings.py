@@ -53,6 +53,7 @@ INSTALLED_APPS = (
 
     'station',
     'message',
+    'videopbi',
 )
 
 MIDDLEWARE_CLASSES = (

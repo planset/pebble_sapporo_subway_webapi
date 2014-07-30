@@ -6,9 +6,9 @@ from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.core import serializers
 
-from helpers import jsonalize
+from .helpers import jsonalize
 import json
-import models
+from . import models
 
 class Location(object):
     def __init__(self, lat, lng):

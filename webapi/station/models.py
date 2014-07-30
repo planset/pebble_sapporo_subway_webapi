@@ -1,5 +1,5 @@
 from django.db import models
-from helpers import jsonalize
+from .helpers import jsonalize
 
 
 class Holiday(models.Model):
