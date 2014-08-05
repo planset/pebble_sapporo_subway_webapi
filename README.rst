@@ -37,6 +37,14 @@ Feature
     * Pebbleアプリに使えるちょうどよい長さの駅名
     * 次の電車発車時刻（福住方面行き、栄町方面行き）
 
+* videopbi
+
+  * uploadしたjpgをpbiファイルに変換
+  * 配信
+  * PIL(pillow)
+  * apt-get install imagemagick
+
+
 
 setup
 =======
