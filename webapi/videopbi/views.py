@@ -6,6 +6,7 @@ from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
 from django.core import serializers
 from django.template import RequestContext
+from convert_jpg_to_pbi import convert
 
 DATA_DIR = 'data_pbi'
 
@@ -69,8 +70,9 @@ def handle_uploaded_file(f, filepath):
 
 def upload(request, id):
     if request.method == 'POST':
-        handle_uploaded_file(request.FILES['file'], 
-                os.path.join(DATA_DIR, 'org_' + str(id) + '.jpg'))
+        destfilepath = os.path.join(DATA_DIR, 'org_' + str(id) + '.jpg')
+        handle_uploaded_file(request.FILES['file'], destfilepath)
+        convert(destfilepath)
         return HttpResponse('ok')
     return render_to_response("videopbi/upload.html",
                               context_instance=RequestContext(request))
