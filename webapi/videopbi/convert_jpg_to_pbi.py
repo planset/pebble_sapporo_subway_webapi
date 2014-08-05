@@ -24,7 +24,7 @@ def convert(srcfilepath):
     r = execute(CMD2.format(input_filepath=srcfilepath,
         output_filepath=pngfilepath))
     if r != 0:
-        break
+        return
 
     bitmapgen_args = Args()
     bitmapgen_args.input_png = pngfilepath
