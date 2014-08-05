@@ -18,19 +18,20 @@ def execute(cmd):
     return os.system(cmd)
 
 def convert(srcfilepath):
-    #pngfilepath = srcfilepath.replace('.jpg', '.png')
+    pngfilepath = srcfilepath.replace('.jpg', '.png')
     pbifilepath = srcfilepath.replace('org_', '').replace('.jpg', '.pbi')
 
-    #r = execute(CMD2.format(input_filepath=srcfilepath,
-    #    output_filepath=pngfilepath))
-    #if r != 0:
-    #    return
+    r = execute(CMD2.format(input_filepath=srcfilepath,
+        output_filepath=pngfilepath))
+    if r != 0:
+        return
 
     bitmapgen_args = Args()
-    bitmapgen_args.input_png = srcfilepath
+    bitmapgen_args.input_png = pngfilepath
     bitmapgen_args.output_pbi = pbifilepath
     bitmapgen.cmd_pbi(bitmapgen_args)
 
+    os.remove(pngfilepath)
 
 
 
