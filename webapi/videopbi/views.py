@@ -45,6 +45,15 @@ def _next_ms(path, ms, skip_ms=250):
         f.write(str(ms))
 
 def show(request, id):
+    filename = os.path.join(DATA_DIR, str(id) + '.pbi')
+    try:
+        data = _read_pbi(filename)
+    except:
+        raise Http404('pbi not found.')
+    return HttpResponse(data,
+                        content_type='application/octet-stream')
+
+def show_ms(request, id):
     status_file = 'data_pbi/' + str(id) + '/current.txt'
     ms = _read_ms(status_file, 0)
     filename = ms_to_filename(ms) + '.pbi'
