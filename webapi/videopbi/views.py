@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*- 
+import os
+from django.shortcuts import render_to_response, redirect
 from django.http import Http404
 from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404
 from django.core import serializers
+from django.template import RequestContext
 
+DATA_DIR = 'data_pbi'
 
 def ms_to_filename(ms):
     """for pbi file name"""
@@ -57,3 +61,17 @@ def start(request, id):
 
 def stop(request, id):
     return HttpResponse('stop' + str(id))
+
+def handle_uploaded_file(f, filepath):
+    with open(filepath, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+def upload(request, id):
+    if request.method == 'POST':
+        handle_uploaded_file(request.FILES['file'], 
+                os.path.join(DATA_DIR, 'org_' + str(id) + '.jpg'))
+        return HttpResponse('ok')
+    return render_to_response("videopbi/upload.html",
+                              context_instance=RequestContext(request))
+
