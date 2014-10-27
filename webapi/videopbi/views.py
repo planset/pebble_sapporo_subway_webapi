@@ -53,8 +53,11 @@ def show(request, id):
     return HttpResponse(data,
                         content_type='application/octet-stream')
 
+def _status_file(id):
+    return 'data_pbi/' + str(id) + '/current.txt'
+
 def show_ms(request, id):
-    status_file = 'data_pbi/' + str(id) + '/current.txt'
+    status_file = _status_file(id)
     ms = _read_ms(status_file, 0)
     filename = ms_to_filename(ms) + '.pbi'
     try:
@@ -67,6 +70,8 @@ def show_ms(request, id):
         content_type='application/octet-stream')
 
 def start(request, id):
+    status_file = _status_file(id)
+    _next_ms(status_file, 0, 0) # 最後まで行った場合、0msに戻す
     return HttpResponse('start' + str(id))
 
 def stop(request, id):
