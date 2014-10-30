@@ -25,7 +25,7 @@ DEBUG = False #(os.environ.get('DEBUG', 'True') == 'True')
 
 TEMPLATE_DEBUG = DEBUG
 
-EMAIL_HOST = 
+EMAIL_HOST = ''
 
 ADMINS = (
     ('Daisuke Igarashi', 'daisuke@dkpyn.com'),
