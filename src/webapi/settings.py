@@ -17,12 +17,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'aumhcs!=^j&95!utal+9hgfoua1y++()!_2tlfcvl1x0ciay6k'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'aumhcs!=^j&95!utal+9hgfoua1y++()!_2tlfcvl1x0ciay6k')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-TEMPLATE_DEBUG = True
+DEBUG = (os.environ.get('DEBUG', 'True') == 'True')
+
+TEMPLATE_DEBUG = DEBUG
 
 EMAIL_HOST = 'localhost'
 
@@ -30,7 +31,7 @@ ADMINS = (
     ('Daisuke Igarashi', 'daisuke@dkpyn.com'),
 )
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['heroku.com', 'localhost']
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
