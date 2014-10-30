@@ -31,7 +31,7 @@ ADMINS = (
     ('Daisuke Igarashi', 'daisuke@dkpyn.com'),
 )
 
-ALLOWED_HOSTS = ['*.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['.herokuapp.com', 'localhost']
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
