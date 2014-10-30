@@ -2,6 +2,7 @@
 from math import acos, sin, cos, radians
 from datetime import datetime
 
+import pytz
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
@@ -49,7 +50,8 @@ def add_colon(db_time):
 def closest(request, lat, lng):
     stations = models.Station.objects.all()
     station = _closest_station(stations, Location(lat, lng))
-    now = datetime.now()
+    jst = pytz.timezone('Asia/Tokyo')
+    now = datetime.now(jst)
     time_string = now.strftime('%H%M')
     next_fukuzumi_departure = None
     next_sakaemachi_departure = None
@@ -69,7 +71,8 @@ def closest(request, lat, lng):
             u'stationInfoDir1': u'栄町',
             u'stationInfoDir2': u'福ずみ',
             u'stationInfoDir1Departure': unicode(dir1time),
-            u'stationInfoDir2Departure': unicode(dir2time)
+            u'stationInfoDir2Departure': unicode(dir2time),
+            u'datetime': str(now)
             }
     data = json.dumps(data, ensure_ascii=False, encoding='utf-8')
     return HttpResponse(data, content_type='application/json;charset=utf-8')
