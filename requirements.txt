@@ -1,8 +1,5 @@
-django
-djangorestframework
-South
+django==1.7
+
 requests
-
 lxml
-
-uwsgi
+gunicorn
