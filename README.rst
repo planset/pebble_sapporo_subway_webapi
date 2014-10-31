@@ -18,16 +18,17 @@ Feature
     * Pebbleアプリに使えるちょうどよい長さの駅名
     * 次の電車発車時刻（福住方面行き、栄町方面行き）
 
-
-setup
+deploy
 =======
-herokuにごー::
+heroku::
 
     git clone [this repository]
     cd [this repository]
     heroku create
     git push heroku master
     heroku ps:scale web=1
+    heroku config:set APP_ENV=production
+    heroku config:set SECRET_KEY="{REPLACE YOUR SECRET_KEY}"
     heroku open
 
 

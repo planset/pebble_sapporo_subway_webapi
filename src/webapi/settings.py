@@ -19,9 +19,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', 'aumhcs!=^j&95!utal+9hgfoua1y++()!_2tlfcvl1x0ciay6k')
 
-# SECURITY WARNING: don't run with debug turned on in production!
+LOCAL_DEV = True
+if os.environ.get('APP_ENV', '') == 'production':
+    LOCAL_DEV = False
 
-DEBUG = (os.environ.get('DEBUG', 'True') == 'True')
+DEBUG = True if LOCAL_DEV else False
 
 TEMPLATE_DEBUG = DEBUG
 
