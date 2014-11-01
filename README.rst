@@ -18,8 +18,25 @@ Feature
     * Pebbleアプリに使えるちょうどよい長さの駅名
     * 次の電車発車時刻（福住方面行き、栄町方面行き）
 
-deploy
-=======
+
+development
+===========
+terminal::
+
+    git clone [this repository]
+    cd [this repository]
+    virtualenv env
+    source env/bin/activate
+    pip install -r requirements.txt
+    #foreman start
+    python src/manage.py runserver
+
+
+http://localhost:8000/stations/closest/0/0/ にアクセスして情報が取得できていればよい。
+
+
+deployment
+===========
 heroku::
 
     git clone [this repository]
