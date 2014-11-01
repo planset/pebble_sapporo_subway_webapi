@@ -5,6 +5,4 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^stations/', include('station.urls')),
-
-    url(r'^admin/', include(admin.site.urls)),
 )
