@@ -68,7 +68,7 @@ def closest(request, lat, lng):
     dir2time = add_colon(next_fukuzumi_departure.time) if next_fukuzumi_departure else ''
     data = {
             u'stationInfoName': unicode(station.name_for_pebble),
-            u'stationInfoDir1': u'栄町',
+            u'stationInfoDir1': u'さかえ町',
             u'stationInfoDir2': u'福ずみ',
             u'stationInfoDir1Departure': unicode(dir1time),
             u'stationInfoDir2Departure': unicode(dir2time),
