@@ -69,7 +69,7 @@ def closest(request, lat, lng):
     data = {
             u'stationInfoName': unicode(station.name_for_pebble),
             u'stationInfoDir1': u'さかえ町',
-            u'stationInfoDir2': u'福ずみ',
+            u'stationInfoDir2': u'福住',
             u'stationInfoDir1Departure': unicode(dir1time),
             u'stationInfoDir2Departure': unicode(dir2time),
             u'datetime': str(now)
